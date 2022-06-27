@@ -1,6 +1,7 @@
 import pyttsx3
 import datetime
-import speechRecognition as sr
+import speech_recognition as sr
+import wikipedia
 
 engine = pyttsx3.init("sapi5")
 voices = engine.getProperty('voices')
@@ -40,7 +41,18 @@ def greetings():
     else:
         speak("Good Evening!")
 
-    
-
 if __name__ == '__main__':
-    speak("I am inevitable")
+    greetings()
+    while True:
+    # if 1:
+        query = hearQuery().lower() #Converting user query into lower case
+
+        # Logic for executing tasks based on query
+        if 'wikipedia' in query:  #if wikipedia found in the query then this block will be executed
+            speak('Searching Wikipedia...')
+            query = query.replace("wikipedia", "")
+            results = wikipedia.summary(query, sentences=2) 
+            speak("According to Wikipedia")
+            print(results)
+            speak(results)
+
